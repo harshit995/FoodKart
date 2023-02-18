@@ -1,9 +1,10 @@
 const userModel = require("../models/userModel")
 const bcrypt = require('bcryptjs')
 
+
 const registerController = async (req, res) => {
 
-    let { name, email } = req.body
+    let { name, email, password } = req.body
 
     if (!name || !email || !password) {
         res.status(422).json("fill all the fields...")
@@ -17,11 +18,10 @@ const registerController = async (req, res) => {
             res.status(401).json("user already exist..")
         }
         else {
-            const password = req.body.password
             const salt = await bcrypt.genSalt(10)
             const hashedPassword = await bcrypt.hash(password, salt)
 
-            req.body.password = hashedPassword;
+            password = hashedPassword;
 
             const newUser = new userModel({
                 name, email, password
@@ -36,8 +36,37 @@ const registerController = async (req, res) => {
     }
 
 }
-const loginController = async () => {
+const loginController = async (req, res) => {
+    const { email, password } = req.body
 
+    if (!email || !password) {
+        return res.status(400).json({ error: "please filled the data.." })
+    }
+
+    try {
+        const user = await userModel.findOne({ email: email })
+        if (user) {
+            const isMatch = await bcrypt.compare(password, user.password)
+            if (!isMatch) {
+                res.status(400).json("incorrect details...")
+            } else {
+                const token = await user.generateAuthToken();
+                console.log(token)
+
+                res.cookie("jwtoken", token, {
+                    expires: new Date(Date.now() + 25892000000),
+                    httpOnly: true
+                })
+
+                res.status(200).json("Login Successfully...")
+            }
+
+        } else {
+            res.status(400).json("incorrect details...")
+        }
+    } catch (error) {
+        res.status(400).json("Error in login..")
+    }
 
 
 }

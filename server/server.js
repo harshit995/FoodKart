@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 const cors = require("cors");
 require('dotenv').config()
 const router = require("./routes/userRoutes")
+const cookieParser = require('cookie-parser')
 const PORT = process.env.PORT || 8080
 
 //rest objects
@@ -15,7 +16,7 @@ app.use(cors());
 //database
 connectDB();
 
-//
+app.use(cookieParser())
 
 //middlewares
 app.use(express.json())

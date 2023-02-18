@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/Registerstyles.css"
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Form, Input } from 'antd';
 import { registerfunc } from '../services/Apis';
 
 const Register = () => {
+
+  let navigate = useNavigate();
   const [inputdata, setInputData] = useState({
     name: "",
     email: "",
@@ -28,6 +30,18 @@ const Register = () => {
 
     const response = await registerfunc(data);
     console.log(response)
+
+    if (response.status === 200) {
+      setInputData({
+        ...inputdata,
+        name: "",
+        email: "",
+        password: "",
+      });
+      navigate('/login')
+    } else {
+      console.log("error")
+    }
 
   }
   return (

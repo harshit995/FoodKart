@@ -1,27 +1,47 @@
-import React from 'react'
-import { Link } from "react-router-dom";
+import React, { useState } from 'react'
+import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/Registerstyles.css"
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Form, Input } from 'antd';
+import { loginfunc } from '../services/Apis';
+
 const Login = () => {
+  let navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
 
-  const onfinishHandler = (value) => {
-    console.log(value)
+  const loginUser = async (e) => {
+    e.preventDefault();
+    const data = new FormData();
+
+    data.append("email", email)
+    data.append("password", password)
+
+    const response = await loginfunc(data);
+    console.log(response)
+    if (response.status === 200) {
+      setEmail("")
+      setPassword("")
+      navigate('/')
+    }
   }
+
   return (
     <>
       <div className="form-container ">
-        <Form layout="vertical" onFinish={onfinishHandler} className='card shadow p-4'>
+        <Form layout="vertical" className='card shadow p-4'>
           <h3 className='text-center'>Login Form</h3>
 
           <Form.Item label="Email" name="email">
-            <Input type='email' required />
+            <Input type='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
           </Form.Item>
           <Form.Item label="Password" name="password">
-            <Input type='password' required />
+            <Input type='password' value={password}
+              onChange={(e) => setPassword(e.target.value)} required />
           </Form.Item>
-          <Link to='/register' className='m-2'>Create User</Link>
-          <button className="btn btn-primary" type='submit'>Register</button>
+          <NavLink to='/register' className='m-2'>Create User</NavLink>
+          <button className="btn btn-primary" value="Log In"
+            onClick={loginUser} type='submit'>Register</button>
         </Form>
 
 
