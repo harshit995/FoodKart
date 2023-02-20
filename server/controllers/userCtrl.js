@@ -44,17 +44,19 @@ const loginController = async (req, res) => {
     }
 
     try {
+        let token;
         const user = await userModel.findOne({ email: email })
         if (user) {
             const isMatch = await bcrypt.compare(password, user.password)
             if (!isMatch) {
                 res.status(400).json("incorrect details...")
             } else {
-                const token = await user.generateAuthToken();
-                console.log(token)
+                //to generate JWT TOKEN 
+                token = await user.generateAuthToken();
+                console.log("the token is", token)
 
                 res.cookie("jwtoken", token, {
-                    expires: new Date(Date.now() + 25892000000),
+                    expires: new Date(Date.now() + 25000000),
                     httpOnly: true
                 })
 
@@ -71,4 +73,9 @@ const loginController = async (req, res) => {
 
 }
 
-module.exports = { loginController, registerController }
+const authcontroller = async (req, res) => {
+    console.log(req.rootuser)
+    res.status(200).send(req.rootUser);
+}
+
+module.exports = { loginController, registerController, authcontroller }

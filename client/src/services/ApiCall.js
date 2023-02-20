@@ -1,4 +1,5 @@
 import axios from "axios";
+axios.defaults.withCredentials = true;
 
 export const commonrequest = async (methods, url, body, header) => {
     let config = {
@@ -6,7 +7,8 @@ export const commonrequest = async (methods, url, body, header) => {
         url,
         headers: header ?
             header : {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                // withCredentials: true
             },
         data: body
     }

@@ -11,9 +11,9 @@ const PORT = process.env.PORT || 8080
 //rest objects
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:3001', credentials: true }));
 
-//database
+//database  
 connectDB();
 
 app.use(cookieParser())
