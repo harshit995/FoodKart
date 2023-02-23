@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { authContext } from '../components/context/ContextProvider';
+// import { authContext } from '../components/context/ContextProvider';
 import { getuserfunc } from '../services/Apis';
 
 // import axios from 'axios';
@@ -26,6 +27,9 @@ const HomePage = () => {
     }
     else {
       setUser(response.data)
+      console.log("data is..")
+      console.log(user)
+
     }
   }
 

@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/Registerstyles.css"
 import { Form, Input } from 'antd';
 import { loginfunc } from '../services/Apis';
+// import { authContext } from '../components/context/ContextProvider';
 
 const Login = () => {
   let navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  // const { user, setUser } = useContext(authContext);
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -22,6 +23,8 @@ const Login = () => {
     if (response.status === 200) {
       setEmail("")
       setPassword("")
+      // setUser(response.data)
+
       navigate('/')
     }
   }

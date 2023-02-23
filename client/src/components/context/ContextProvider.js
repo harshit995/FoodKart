@@ -7,7 +7,6 @@ const ContextProvider = ({ children }) => {
 
     const [user, setUser] = useState("");
 
-
     return (
         < >
 
