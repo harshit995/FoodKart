@@ -14,6 +14,12 @@ router.post('/register', registerController)
 
 router.get('/getuserdata', Authenticate, authcontroller)
 
+// router.get('/logout', logoutcontroller)
+router.get('/logout', (req, res) => {
+    res.clearCookie('jwtoken', { path: '/' });
+    res.status(200).send("User Logout")
+})
+
 
 
 

@@ -78,4 +78,9 @@ const authcontroller = async (req, res) => {
     res.status(200).send(req.rootUser);
 }
 
+// const logoutcontroller = async (req, res) => {
+//     res.clearCookie('jwtoken', { path: '/' });
+//     res.status(200).send("User Logout")
+// }
+
 module.exports = { loginController, registerController, authcontroller }
