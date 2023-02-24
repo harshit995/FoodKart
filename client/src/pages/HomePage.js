@@ -26,7 +26,7 @@ const HomePage = () => {
     }
     else {
       console.log("data is..")
-      console.log(user.name)
+      console.log(user)
     }
   }
 

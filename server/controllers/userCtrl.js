@@ -59,7 +59,7 @@ const loginController = async (req, res) => {
                     expires: new Date(Date.now() + 25000000),
                     httpOnly: true
                 })
-
+                user.password = undefined;
                 res.status(200).json(user)
             }
 
