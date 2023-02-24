@@ -60,7 +60,7 @@ const loginController = async (req, res) => {
                     httpOnly: true
                 })
 
-                res.status(200).json("Login Successfully...")
+                res.status(200).json(user)
             }
 
         } else {

@@ -1,8 +1,8 @@
+import Layout from '../components/Layout';
 import React, { useContext, useEffect, useState } from 'react'
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { authContext } from '../components/context/ContextProvider';
-// import { authContext } from '../components/context/ContextProvider';
 import { getuserfunc } from '../services/Apis';
 
 // import axios from 'axios';
@@ -21,15 +21,12 @@ const HomePage = () => {
     const response = await getuserfunc();
     console.log(response)
 
-
     if (response.status !== 200) {
       navigate('/login')
     }
     else {
-      setUser(response.data)
       console.log("data is..")
       console.log(user)
-
     }
   }
 
@@ -37,10 +34,9 @@ const HomePage = () => {
     getUserdata();
   }, [])
   return (
-    <div>
+    <Layout>
       <h1>Home Page</h1>
-      <NavLink to='/about' className='m-2'>about</NavLink>
-    </div>
+    </Layout>
   )
 }
 

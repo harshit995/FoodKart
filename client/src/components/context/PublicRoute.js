@@ -8,6 +8,16 @@ export default function PublicRoute({ children }) {
     if (user) {
         return <Navigate to='/'></Navigate>
     } else {
-        return <Outlet />
+        return children
     }
 }
+
+// const PublicRoute = ({ children, redirectTo }) => {
+//     const {user} = UseContext(AuthContext)
+//     const isAuthenticated = user
+//     if (!isAuthenticated) {
+//       return <Outlet/>;
+//     } else {
+//       return <Navigate to={redirectTo} replace/>;
+//     }
+//   }

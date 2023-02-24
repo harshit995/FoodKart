@@ -3,13 +3,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/Registerstyles.css"
 import { Form, Input } from 'antd';
 import { loginfunc } from '../services/Apis';
-// import { authContext } from '../components/context/ContextProvider';
+import { authContext } from '../components/context/ContextProvider';
 
 const Login = () => {
   let navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const { user, setUser } = useContext(authContext);
+  const { user, setUser } = useContext(authContext);
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -20,11 +20,16 @@ const Login = () => {
 
     const response = await loginfunc(data);
     console.log(response)
+
+    // const responses = await getuserfunc();
+    // // console.log(response)
+
     if (response.status === 200) {
       setEmail("")
       setPassword("")
-      // setUser(response.data)
-
+      setUser({ ...response.data })
+      console.log("user is..")
+      console.log(user)
       navigate('/')
     }
   }
