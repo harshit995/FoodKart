@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 const cors = require("cors");
 require('dotenv').config()
 const router = require("./routes/userRoutes")
+const routers = require("./routes/adminRoutes")
 const cookieParser = require('cookie-parser')
 const PORT = process.env.PORT || 8080
 
@@ -25,6 +26,7 @@ app.use(morgan('dev'))
 
 //routes
 app.use(router)
+app.use(routers)
 
 
 

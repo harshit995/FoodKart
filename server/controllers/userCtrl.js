@@ -132,10 +132,38 @@ const applydoctorcontroller = async (req, res) => {
 
 const notificationcontroller = async (req, res) => {
     try {
-
-    } catch (error) {
-        console.log("notification error....")
+        console.log("before...")
+        const user = await userModel.findOne({ _id: req.body.userId });
+        console.log("after...")
+        console.log(req.body.userId)
+        const seennotification = user.seennotification;
+        const notification = user.notification;
+        seennotification.push(...notification);
+        user.notification = [];
+        user.seennotification = notification;
+        const updatedUser = await user.save();
+        updatedUser.password = undefined;
+        res.status(200).send(updatedUser);
+    }
+    catch (error) {
+        res.status(400).send("Notification error....")
+    }
+}
+const deleteallnotificationcontroller = async (req, res) => {
+    try {
+        console.log("before delete..")
+        const user = await userModel.findOne({ _id: req.body.userId });
+        console.log("after...")
+        console.log(req.body.userId)
+        user.seennotification = [];
+        user.notification = [];
+        const updatedUser = await user.save();
+        updatedUser.password = undefined;
+        res.status(200).send(updatedUser);
+    }
+    catch (error) {
+        res.status(400).send("delete error....")
     }
 }
 
-module.exports = { loginController, registerController, authcontroller, applydoctorcontroller, notificationcontroller }
+module.exports = { loginController, registerController, authcontroller, applydoctorcontroller, notificationcontroller, deleteallnotificationcontroller }

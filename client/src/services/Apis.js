@@ -14,6 +14,18 @@ export const logoutfunc = async () => {
 export const applydocfunc = async (data) => {
     return await commonrequest("POST", `${BASE_URL}/applydoctor`, data, "");
 }
+
+export const getmarkallreadfunc = async (data) => {
+    return await commonrequest("POST", `${BASE_URL}/getallnotification`, data, "");
+}
+
+export const getdeletefunc = async (data) => {
+    return await commonrequest("POST", `${BASE_URL}/deleteallnotification`, data, "");
+}
+
+export const getallusersfunc = async () => {
+    return await commonrequest("GET", `${BASE_URL}/getallusers`, {});
+}
 // export const usergetfunc = async (search, gender, activity, sort) => {
 //     return await commonrequest("GET", `${BASE_URL}/user/details?search=${search}&gender=${gender}&activity=${activity}&sort=${sort}`, "");
 // }

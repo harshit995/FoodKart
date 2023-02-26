@@ -48,8 +48,7 @@ const doctorSchema = new mongoose.Schema(
             type: String,
             required: [true, "work timing is required"]
         },
-    },
-    { timestamps: true }
+    }
 );
 
 const doctorModel = mongoose.model("doctors", doctorSchema);
