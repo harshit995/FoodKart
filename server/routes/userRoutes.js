@@ -1,5 +1,5 @@
 const express = require('express');
-const { loginController, registerController, authcontroller } = require('../controllers/userCtrl');
+const { loginController, registerController, authcontroller, applydoctorcontroller } = require('../controllers/userCtrl');
 const Authenticate = require('../middlewares/authmiddleware');
 
 const router = express.Router();
@@ -13,6 +13,8 @@ router.post('/login', loginController)
 router.post('/register', registerController)
 
 router.get('/getuserdata', Authenticate, authcontroller)
+
+router.post('/applydoctor', Authenticate, applydoctorcontroller)
 
 // router.get('/logout', logoutcontroller)
 router.get('/logout', (req, res) => {

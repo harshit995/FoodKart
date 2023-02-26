@@ -1,6 +1,6 @@
 import Layout from '../components/Layout';
 import React, { useContext, useEffect, useState } from 'react'
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { authContext } from '../components/context/ContextProvider';
 import { getuserfunc } from '../services/Apis';
@@ -27,6 +27,7 @@ const HomePage = () => {
     else {
       console.log("data is..")
       console.log(user)
+      console.log(user._id)
     }
   }
 

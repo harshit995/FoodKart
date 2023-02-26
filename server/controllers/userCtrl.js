@@ -1,5 +1,6 @@
 const userModel = require("../models/userModel")
 const bcrypt = require('bcryptjs')
+const doctorModel = require("../models/doctorModel")
 
 
 const registerController = async (req, res) => {
@@ -70,12 +71,58 @@ const loginController = async (req, res) => {
         res.status(400).json("Error in login..")
     }
 
-
 }
 
 const authcontroller = async (req, res) => {
-    console.log(req.rootuser)
+    // console.log(req.rootuser)
     res.status(200).send(req.rootUser);
+}
+
+
+
+const applydoctorcontroller = async (req, res) => {
+
+    const { firstname, lastname, email, phone, website, address, specialization, experience, feesPerCunsaltation, timings } = req.body;
+
+    if (!firstname || !lastname || !email || !phone || !address || !specialization || !experience || !feesPerCunsaltation || !timings) {
+        return res.status(400).json("fill all the fields...")
+    }
+
+    try {
+        const existingUser = await doctorModel.findOne({ email: email });
+
+        if (existingUser) {
+            res.status(401).json("user already exist..")
+        }
+        else {
+            const newDoctor = new doctorModel({
+                firstname, lastname, email, phone, website, address, specialization, experience, feesPerCunsaltation, timings, status: "pending"
+            })
+            console.log("else part")
+            await newDoctor.save();
+            console.log("after save")
+            console.log("new doctor is ..")
+            console.log(newDoctor)
+            const adminUser = await userModel.findOne({ isAdmin: true })
+            const notification = adminUser.notification
+            notification.push({
+                type: 'apply-doctor-request',
+                message: `${newDoctor.firstname} ${newDoctor.lastname} Has Applied For a Doctor Account`,
+                data: {
+                    doctorId: newDoctor._id,
+                    name: newDoctor.firstname + " " + newDoctor.lastname,
+                    onClickpath: '/admin/doctors'
+                }
+            })
+            await userModel.findByIdAndUpdate(adminUser._id, { notification });
+            res.status(200).json(newDoctor)
+
+        }
+    }
+    catch (error) {
+        res.status(400).send("Apply doctor error....")
+    }
+
 }
 
 // const logoutcontroller = async (req, res) => {
@@ -83,4 +130,12 @@ const authcontroller = async (req, res) => {
 //     res.status(200).send("User Logout")
 // }
 
-module.exports = { loginController, registerController, authcontroller }
+const notificationcontroller = async (req, res) => {
+    try {
+
+    } catch (error) {
+        console.log("notification error....")
+    }
+}
+
+module.exports = { loginController, registerController, authcontroller, applydoctorcontroller, notificationcontroller }

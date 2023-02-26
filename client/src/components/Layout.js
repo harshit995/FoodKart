@@ -1,3 +1,4 @@
+import { Badge } from 'antd'
 import React, { useContext } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 
@@ -54,6 +55,7 @@ const Layout = ({ children }) => {
                         <div className="header">
                             <div className="header-content">
                                 <i class="fa-solid fa-bell"></i>
+                                <Badge style={{ marginBottom: "28px", marginRight: "20px" }} count={user?.notification.length}></Badge>
                                 <NavLink className="text-decoration-none " to='/profile'>{user?.name}</NavLink>
                             </div>
                         </div>
