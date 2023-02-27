@@ -1,11 +1,12 @@
-.form-container{
+.form-container {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    
+
 }
-.card{
+
+.cardss {
     border: 2px solid black;
     width: 30%;
 }

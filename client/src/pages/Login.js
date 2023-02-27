@@ -37,7 +37,7 @@ const Login = () => {
   return (
     <>
       <div className="form-container ">
-        <Form layout="vertical" className='card shadow p-4'>
+        <Form layout="vertical" className='card cardss shadow p-4'>
           <h3 className='text-center'>Login Form</h3>
 
           <Form.Item label="Email" name="email">

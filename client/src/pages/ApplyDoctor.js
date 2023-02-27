@@ -153,7 +153,7 @@ const ApplyDoctor = () => {
                     <Col xs={24} md={24} lg={8} />
                     <Col xs={24} md={24} lg={8}>
                         {/* <div className="d-flex justify-content-end mb-3"> */}
-                        <button className="btn btn-primary" type='submit' onClick={submitUserData}>
+                        <button className="btn btns btn-primary" type='submit' onClick={submitUserData}>
                             Submit
                         </button>
                         {/* </div> */}

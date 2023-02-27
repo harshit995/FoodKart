@@ -47,7 +47,7 @@ const Register = () => {
   return (
     <>
       <div className="form-container ">
-        <Form layout="vertical" className='card shadow p-4'>
+        <Form layout="vertical" className='card cardss shadow p-4'>
           <h3 className='text-center'>Register Form</h3>
           <Form.Item label="Name">
             <Input type='text' name="name" value={inputdata.name} onChange={setInputValue} required />
